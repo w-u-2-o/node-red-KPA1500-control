@@ -1,0 +1,966 @@
+[
+    {
+        "id": "658c7ad366150fb1",
+        "type": "tab",
+        "label": "KPA1500 Settings",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "1db2c88cbfba725b",
+        "type": "comment",
+        "z": "658c7ad366150fb1",
+        "name": "Main button definition",
+        "info": "",
+        "x": 180,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "c7cd22d84813ebbb",
+        "type": "ui_ui_control",
+        "z": "658c7ad366150fb1",
+        "name": "Go to settings tab",
+        "events": "change",
+        "x": 670,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c5c86aade3966556",
+        "type": "ui_button",
+        "z": "658c7ad366150fb1",
+        "name": "Go to main tab",
+        "group": "e9028130cd721458",
+        "order": 7,
+        "width": 3,
+        "height": 1,
+        "passthru": false,
+        "label": "RETURN",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "arrow_back",
+        "payload": "{\"tab\":\"STATION CONTROLLER MAIN\"}",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 300,
+        "y": 120,
+        "wires": [
+            [
+                "577485789339a218"
+            ]
+        ]
+    },
+    {
+        "id": "577485789339a218",
+        "type": "ui_ui_control",
+        "z": "658c7ad366150fb1",
+        "name": "Go to main tab",
+        "events": "change",
+        "x": 660,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4b120b4e99649ad1",
+        "type": "comment",
+        "z": "658c7ad366150fb1",
+        "name": "If no file go to settings at startup",
+        "info": "",
+        "x": 730,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "bbe869c35d3243f9",
+        "type": "comment",
+        "z": "658c7ad366150fb1",
+        "name": "Read, set and write network address settings",
+        "info": "",
+        "x": 250,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "e0fcd4caa85d7bdd",
+        "type": "change",
+        "z": "658c7ad366150fb1",
+        "name": "Make correct UI control command",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"tab\":\"Tab 4\"}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 760,
+        "y": 480,
+        "wires": [
+            [
+                "c7cd22d84813ebbb"
+            ]
+        ]
+    },
+    {
+        "id": "4f3058fa401375f3",
+        "type": "comment",
+        "z": "658c7ad366150fb1",
+        "name": "Make sure form is populated when going to tab",
+        "info": "",
+        "x": 320,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "ce8a73c47ced77c5",
+        "type": "ui_button",
+        "z": "658c7ad366150fb1",
+        "name": "Go to KPA settings tab",
+        "group": "4af4d08c70d2f779",
+        "order": 1,
+        "width": 1,
+        "height": 1,
+        "passthru": false,
+        "label": "",
+        "tooltip": "KPA1500 settings",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "settings",
+        "payload": "{\"tab\":\"KPA SETTINGS\"}",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 320,
+        "y": 180,
+        "wires": [
+            [
+                "c7cd22d84813ebbb",
+                "b2774458fb2ea79f"
+            ]
+        ]
+    },
+    {
+        "id": "643c86526818fe22",
+        "type": "ui_etable",
+        "z": "658c7ad366150fb1",
+        "payload": "[{\"title\":\"IP ADDRESS\",\"field\":\"ipAddress\",\"editor\":\"input\",\"headerSort\":false,\"width\":125},{\"title\":\"PORT\",\"field\":\"port\",\"editor\":\"number\",\"headerSort\":false,\"width\":70},{\"title\":\"MAC\",\"field\":\"macAddress\",\"editor\":\"input\",\"headerSort\":false,\"width\":200}]",
+        "payloadType": "json",
+        "options": "{}",
+        "group": "e9028130cd721458",
+        "name": "KPA Network Settings",
+        "order": 5,
+        "width": 11,
+        "height": 3,
+        "columns": [],
+        "outputs": 1,
+        "cts": false,
+        "x": 1020,
+        "y": 640,
+        "wires": [
+            [
+                "054f95ffba2f230b"
+            ]
+        ]
+    },
+    {
+        "id": "278161cd8e79a5e5",
+        "type": "file in",
+        "z": "658c7ad366150fb1",
+        "name": "Read kpa_settings.json",
+        "filename": "C:\\node-red\\kpa_settings.json",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "utf8",
+        "allProps": false,
+        "x": 470,
+        "y": 640,
+        "wires": [
+            [
+                "947d3ec6f3a5f95f"
+            ]
+        ]
+    },
+    {
+        "id": "96f0cf4059d8c242",
+        "type": "inject",
+        "z": "658c7ad366150fb1",
+        "name": "At startup",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.1",
+        "topic": "",
+        "payload": "[{\"ipAddress\":\"127.0.0.1\",\"port\":\"1500\"}]",
+        "payloadType": "str",
+        "x": 220,
+        "y": 640,
+        "wires": [
+            [
+                "278161cd8e79a5e5"
+            ]
+        ]
+    },
+    {
+        "id": "2759f8ecf863a78b",
+        "type": "catch",
+        "z": "658c7ad366150fb1",
+        "name": "Catch network file read error",
+        "scope": [
+            "278161cd8e79a5e5"
+        ],
+        "uncaught": false,
+        "x": 480,
+        "y": 540,
+        "wires": [
+            [
+                "947d3ec6f3a5f95f",
+                "e0fcd4caa85d7bdd"
+            ]
+        ]
+    },
+    {
+        "id": "b2774458fb2ea79f",
+        "type": "change",
+        "z": "658c7ad366150fb1",
+        "name": "Chg message",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[{\"ipAddress\":\"127.0.0.1\",\"port\":\"1500\"}]",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 240,
+        "y": 540,
+        "wires": [
+            [
+                "278161cd8e79a5e5"
+            ]
+        ]
+    },
+    {
+        "id": "947d3ec6f3a5f95f",
+        "type": "json",
+        "z": "658c7ad366150fb1",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 790,
+        "y": 640,
+        "wires": [
+            [
+                "884bec4232638a7f",
+                "643c86526818fe22"
+            ]
+        ]
+    },
+    {
+        "id": "d4978ae196b69840",
+        "type": "change",
+        "z": "658c7ad366150fb1",
+        "name": "Store global.kpaNetworkSettings",
+        "rules": [
+            {
+                "t": "set",
+                "p": "kpaNetworkSettings",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1550,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "054f95ffba2f230b",
+        "type": "change",
+        "z": "658c7ad366150fb1",
+        "name": "Store flow.kpaNetworkSettings",
+        "rules": [
+            {
+                "t": "set",
+                "p": "kpaNetworkSettings",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1170,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "feac06c1e8550866",
+        "type": "ui_button",
+        "z": "658c7ad366150fb1",
+        "name": "Save",
+        "group": "e9028130cd721458",
+        "order": 10,
+        "width": 3,
+        "height": 1,
+        "passthru": false,
+        "label": "SAVE",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "kpaNetworkSettings",
+        "payloadType": "flow",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 190,
+        "y": 920,
+        "wires": [
+            [
+                "f84f3bdafb279214"
+            ]
+        ]
+    },
+    {
+        "id": "64c10b677b29aa90",
+        "type": "ui_toast",
+        "z": "658c7ad366150fb1",
+        "position": "dialog",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 1,
+        "ok": "OK",
+        "cancel": "",
+        "raw": true,
+        "className": "",
+        "topic": "",
+        "name": "",
+        "x": 1330,
+        "y": 920,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ed3bf81cd04687f4",
+        "type": "template",
+        "z": "658c7ad366150fb1",
+        "name": "get mac template",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<p style=\"font-size:80%;padding:0;margin:0;\"><span style=\"color:lightblue;\">Get MAC address & resubmit</span></p>",
+        "output": "str",
+        "x": 1150,
+        "y": 980,
+        "wires": [
+            [
+                "e44c4a82a4e7e494"
+            ]
+        ]
+    },
+    {
+        "id": "884bec4232638a7f",
+        "type": "change",
+        "z": "658c7ad366150fb1",
+        "name": "Pull the object out of the array",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.0",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1170,
+        "y": 540,
+        "wires": [
+            [
+                "d4978ae196b69840",
+                "054f95ffba2f230b"
+            ]
+        ]
+    },
+    {
+        "id": "797456127da6fae2",
+        "type": "file",
+        "z": "658c7ad366150fb1",
+        "name": "Write kpa_settings.json",
+        "filename": "C:\\node-red\\kpa_settings.json",
+        "appendNewline": true,
+        "createDir": true,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1530,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "26f2e97c74f26842",
+        "type": "change",
+        "z": "658c7ad366150fb1",
+        "name": "Put the object into an array",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[msg.payload]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1540,
+        "y": 660,
+        "wires": [
+            [
+                "797456127da6fae2"
+            ]
+        ]
+    },
+    {
+        "id": "637413fcb1ddde33",
+        "type": "ui_text",
+        "z": "658c7ad366150fb1",
+        "group": "e9028130cd721458",
+        "order": 2,
+        "width": 9,
+        "height": 1,
+        "name": "Network Settings Label",
+        "label": "<font size=4,font color=lightblue>KPA1500 Network Settings",
+        "format": "",
+        "layout": "row-center",
+        "className": "",
+        "x": 1090,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "583c39dd8dd88cea",
+        "type": "template",
+        "z": "658c7ad366150fb1",
+        "name": "saved template",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<p style=\"font-size:80%;padding:0;margin:0;\"><span style=\"color:lightblue;\">Saved:</span><br>IP {{flow.kpaNetworkSettings.ipAddress}}&nbsp Port {{flow.kpaNetworkSettings.port}}<br>MAC {{flow.kpaNetworkSettings.macAddress}}</p>",
+        "output": "str",
+        "x": 1140,
+        "y": 920,
+        "wires": [
+            [
+                "64c10b677b29aa90"
+            ]
+        ]
+    },
+    {
+        "id": "8edf579b50ef437e",
+        "type": "ping",
+        "z": "658c7ad366150fb1",
+        "protocol": "IPv4",
+        "mode": "triggered",
+        "name": "",
+        "host": "",
+        "timer": "20",
+        "inputs": 1,
+        "x": 790,
+        "y": 1100,
+        "wires": [
+            [
+                "802a97e8b3b98b69"
+            ]
+        ]
+    },
+    {
+        "id": "802a97e8b3b98b69",
+        "type": "switch",
+        "z": "658c7ad366150fb1",
+        "name": "Only proceed on success",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "false",
+                "vt": "str"
+            },
+            {
+                "t": "nnull"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 990,
+        "y": 1100,
+        "wires": [
+            [],
+            [
+                "105bb1a239343e2b"
+            ]
+        ]
+    },
+    {
+        "id": "76a9efe0a7dfe64c",
+        "type": "exec",
+        "z": "658c7ad366150fb1",
+        "command": "",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Peform arp command",
+        "x": 800,
+        "y": 1180,
+        "wires": [
+            [
+                "18d20a5538f84e13"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "105bb1a239343e2b",
+        "type": "template",
+        "z": "658c7ad366150fb1",
+        "name": "Form arp command for ip address",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "arp -a {{flow.newKPANetworkSettings.ipAddress}}",
+        "output": "str",
+        "x": 1280,
+        "y": 1100,
+        "wires": [
+            [
+                "76a9efe0a7dfe64c"
+            ]
+        ]
+    },
+    {
+        "id": "18d20a5538f84e13",
+        "type": "string",
+        "z": "658c7ad366150fb1",
+        "name": "Extract MAC from message",
+        "methods": [
+            {
+                "name": "between",
+                "params": [
+                    {
+                        "type": "flow",
+                        "value": "newKPANetworkSettings.ipAddress"
+                    },
+                    {
+                        "type": "str",
+                        "value": "\\n"
+                    }
+                ]
+            },
+            {
+                "name": "replaceAll",
+                "params": [
+                    {
+                        "type": "str",
+                        "value": "dynamic"
+                    },
+                    {
+                        "type": "str",
+                        "value": ""
+                    }
+                ]
+            },
+            {
+                "name": "replaceAll",
+                "params": [
+                    {
+                        "type": "str",
+                        "value": "static"
+                    },
+                    {
+                        "type": "str",
+                        "value": ""
+                    }
+                ]
+            },
+            {
+                "name": "trim",
+                "params": []
+            }
+        ],
+        "prop": "payload",
+        "propout": "payload",
+        "object": "msg",
+        "objectout": "msg",
+        "x": 1080,
+        "y": 1180,
+        "wires": [
+            [
+                "6a2050bdc57d7d53",
+                "ab90547d62e5a44a",
+                "79388885e9580b59"
+            ]
+        ]
+    },
+    {
+        "id": "31990525e0d463f4",
+        "type": "change",
+        "z": "658c7ad366150fb1",
+        "name": "Get flow.newKPANetworkSettings.ipAddress",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "kpaNetworkSettings.ipAddress",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 530,
+        "y": 1100,
+        "wires": [
+            [
+                "8edf579b50ef437e"
+            ]
+        ]
+    },
+    {
+        "id": "6fe26caad02b852e",
+        "type": "comment",
+        "z": "658c7ad366150fb1",
+        "name": "Find MAC address",
+        "info": "",
+        "x": 170,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "f84f3bdafb279214",
+        "type": "switch",
+        "z": "658c7ad366150fb1",
+        "name": "Detect empty MAC",
+        "property": "payload.macAddress",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nempty"
+            },
+            {
+                "t": "empty"
+            },
+            {
+                "t": "null"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 3,
+        "x": 890,
+        "y": 920,
+        "wires": [
+            [
+                "583c39dd8dd88cea",
+                "26f2e97c74f26842",
+                "d4978ae196b69840"
+            ],
+            [
+                "ed3bf81cd04687f4"
+            ],
+            [
+                "ed3bf81cd04687f4"
+            ]
+        ]
+    },
+    {
+        "id": "e44c4a82a4e7e494",
+        "type": "ui_toast",
+        "z": "658c7ad366150fb1",
+        "position": "dialog",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 1,
+        "ok": "Click to get MAC",
+        "cancel": "",
+        "raw": true,
+        "className": "",
+        "topic": "",
+        "name": "",
+        "x": 1330,
+        "y": 980,
+        "wires": [
+            [
+                "31990525e0d463f4"
+            ]
+        ]
+    },
+    {
+        "id": "96020e3256029705",
+        "type": "comment",
+        "z": "658c7ad366150fb1",
+        "name": "Check for empty MAC on save",
+        "info": "",
+        "x": 200,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "f73f67c527e0a61a",
+        "type": "join",
+        "z": "658c7ad366150fb1",
+        "name": "Merge",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "3",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "num",
+        "reduceFixup": "",
+        "x": 1650,
+        "y": 1180,
+        "wires": [
+            [
+                "a90ca707626af9c0"
+            ]
+        ]
+    },
+    {
+        "id": "6a2050bdc57d7d53",
+        "type": "change",
+        "z": "658c7ad366150fb1",
+        "name": "Get ipAddress",
+        "rules": [
+            {
+                "t": "move",
+                "p": "kpaNetworkSettings.ipAddress",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "ipAddress",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1340,
+        "y": 1240,
+        "wires": [
+            [
+                "f73f67c527e0a61a"
+            ]
+        ]
+    },
+    {
+        "id": "a90ca707626af9c0",
+        "type": "change",
+        "z": "658c7ad366150fb1",
+        "name": "Put the object into an array",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[msg.payload]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 780,
+        "y": 700,
+        "wires": [
+            [
+                "643c86526818fe22",
+                "884bec4232638a7f"
+            ]
+        ]
+    },
+    {
+        "id": "ab90547d62e5a44a",
+        "type": "change",
+        "z": "658c7ad366150fb1",
+        "name": "Get port",
+        "rules": [
+            {
+                "t": "move",
+                "p": "kpaNetworkSettings.port",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "port",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1320,
+        "y": 1300,
+        "wires": [
+            [
+                "f73f67c527e0a61a"
+            ]
+        ]
+    },
+    {
+        "id": "79388885e9580b59",
+        "type": "change",
+        "z": "658c7ad366150fb1",
+        "name": "Add macAddress topic",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "macAddress",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1360,
+        "y": 1180,
+        "wires": [
+            [
+                "f73f67c527e0a61a"
+            ]
+        ]
+    },
+    {
+        "id": "e9028130cd721458",
+        "type": "ui_group",
+        "name": "KPA Settings",
+        "tab": "b049aa020586c3f1",
+        "order": 7,
+        "disp": false,
+        "width": "30",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "4af4d08c70d2f779",
+        "type": "ui_group",
+        "name": "KPA1500 Control",
+        "tab": "7cfa0acacdc9425e",
+        "order": 4,
+        "disp": false,
+        "width": 30,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "b049aa020586c3f1",
+        "type": "ui_tab",
+        "name": "KPA SETTINGS",
+        "icon": "dashboard",
+        "order": 4,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "7cfa0acacdc9425e",
+        "type": "ui_tab",
+        "name": "STATION CONTROLLER MAIN",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
