@@ -6,6 +6,8 @@
  
  This flow presents the command and control interface. The state of the UI is driven wholly by polling the amp and makes no assumptions based on commands issued. This way the true state of the amp is known.
  
+ There are only three controls: Power: on/off, Mode: operate/standby, and network settings. ATU and other functions are not supported in my implementation because I don't need/use them.
+ 
  Polling commands are issued at an approximate 20Hz rate, this copies what the Elecraft supplied KPA1500 app does and this update rate is approx. the maximum at which the amp can respond.
  
  There are two polling loops, a high speed (20Hz) loop for things like power and SWR, and a low speed loop (1Hz) for things like fan speed, etc.
@@ -27,4 +29,5 @@
  
  Amp network settings are saved in c:\node-red\kpa_settings.json. The directory will be created if it is missing.
  
+ Developed under node 16.12.0 and npm 8.1.0.
  
