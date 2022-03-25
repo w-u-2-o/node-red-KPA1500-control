@@ -1,0 +1,2297 @@
+[
+    {
+        "id": "98d7cf0776793c61",
+        "type": "tab",
+        "label": "KPA1500 Control",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "62780c25ae08c88d",
+        "type": "ui_button",
+        "z": "98d7cf0776793c61",
+        "name": "STDBY/OPER",
+        "group": "4af4d08c70d2f779",
+        "order": 3,
+        "width": 4,
+        "height": 1,
+        "passthru": false,
+        "label": "{{msg.label}}",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "{{msg.background}}",
+        "className": "",
+        "icon": "",
+        "payload": "mode",
+        "payloadType": "flow",
+        "topic": "",
+        "topicType": "str",
+        "x": 1120,
+        "y": 1980,
+        "wires": [
+            [
+                "b3bd99728c90325c",
+                "812215d5d7a0d520"
+            ]
+        ]
+    },
+    {
+        "id": "adcfc86585deb254",
+        "type": "string",
+        "z": "98d7cf0776793c61",
+        "name": "Parse Band Number",
+        "methods": [
+            {
+                "name": "delLeftMost",
+                "params": [
+                    {
+                        "type": "str",
+                        "value": "BN"
+                    }
+                ]
+            }
+        ],
+        "prop": "payload",
+        "propout": "payload",
+        "object": "msg",
+        "objectout": "msg",
+        "x": 1120,
+        "y": 2560,
+        "wires": [
+            [
+                "913f420662c3c3a9"
+            ]
+        ]
+    },
+    {
+        "id": "913f420662c3c3a9",
+        "type": "change",
+        "z": "98d7cf0776793c61",
+        "name": "Band Decoder Table",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "00",
+                "fromt": "str",
+                "to": "BAND: 160M",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "01",
+                "fromt": "str",
+                "to": "BAND: 80M",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "02",
+                "fromt": "str",
+                "to": "BAND: 60M",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "03",
+                "fromt": "str",
+                "to": "BAND: 40M",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "04",
+                "fromt": "str",
+                "to": "BAND: 30M",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "05",
+                "fromt": "str",
+                "to": "BAND: 20M",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "06",
+                "fromt": "str",
+                "to": "BAND: 17M",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "07",
+                "fromt": "str",
+                "to": "BAND: 15M",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "08",
+                "fromt": "str",
+                "to": "BAND: 12M",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "10",
+                "fromt": "str",
+                "to": "BAND: 6M",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "09",
+                "fromt": "str",
+                "to": "BAND: 10M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1360,
+        "y": 2560,
+        "wires": [
+            [
+                "74d54da5ddeb759d"
+            ]
+        ]
+    },
+    {
+        "id": "26e9c59b15d835b6",
+        "type": "loop",
+        "z": "98d7cf0776793c61",
+        "name": "High Spd Loop Controller",
+        "kind": "fcnt",
+        "count": "5",
+        "initial": "1",
+        "step": "1",
+        "condition": "",
+        "conditionType": "re",
+        "when": "before",
+        "enumeration": "[1,2,3,4,5]",
+        "enumerationType": "json",
+        "limit": "",
+        "loopPayload": "loop-val",
+        "finalPayload": "final-orig",
+        "x": 490,
+        "y": 580,
+        "wires": [
+            [
+                "6b23d31f18593050"
+            ],
+            [
+                "f90d69fe0b5b3ec3"
+            ]
+        ]
+    },
+    {
+        "id": "a8ceca1dc1a5def5",
+        "type": "inject",
+        "z": "98d7cf0776793c61",
+        "name": "Start Loops",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 410,
+        "y": 500,
+        "wires": [
+            [
+                "26e9c59b15d835b6"
+            ]
+        ]
+    },
+    {
+        "id": "17c5c4d0d6e1fafa",
+        "type": "function",
+        "z": "98d7cf0776793c61",
+        "name": "Restart Loop",
+        "func": "msg.command=\"restart\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1370,
+        "y": 360,
+        "wires": [
+            [
+                "26e9c59b15d835b6"
+            ]
+        ]
+    },
+    {
+        "id": "f90d69fe0b5b3ec3",
+        "type": "change",
+        "z": "98d7cf0776793c61",
+        "name": "High Spd Msg Generator",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "1",
+                "fromt": "num",
+                "to": "^PWI;",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "2",
+                "fromt": "num",
+                "to": "^PC;",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "3",
+                "fromt": "num",
+                "to": "^PWF;",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "4",
+                "fromt": "num",
+                "to": "^SW;",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "5",
+                "fromt": "num",
+                "to": "^VG;",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 770,
+        "y": 580,
+        "wires": [
+            [
+                "9c70f5059d5f9cb3",
+                "0942b92165538f91"
+            ]
+        ]
+    },
+    {
+        "id": "9c70f5059d5f9cb3",
+        "type": "delay",
+        "z": "98d7cf0776793c61",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "0.02",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1190,
+        "y": 580,
+        "wires": [
+            [
+                "26e9c59b15d835b6"
+            ]
+        ]
+    },
+    {
+        "id": "528b7e9f31e4167a",
+        "type": "switch",
+        "z": "98d7cf0776793c61",
+        "name": "Message Separator",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "KPA1500",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "OS",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "AM",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "FT",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "TP",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "BN",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "FS",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "TM",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "VG",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "DS",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "PWI",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "PWF",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "SW",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "PC",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "FL",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 15,
+        "x": 770,
+        "y": 2680,
+        "wires": [
+            [
+                "da94f13e524ed9f6",
+                "289e0311a05034c2"
+            ],
+            [
+                "d1434b3f90a06025"
+            ],
+            [
+                "0a5d99387a8204a3"
+            ],
+            [
+                "d5405b6cacff7960"
+            ],
+            [
+                "02dffea458bcd365"
+            ],
+            [
+                "adcfc86585deb254"
+            ],
+            [
+                "f8ee7f29c3958ac5"
+            ],
+            [
+                "e433b5a747a9f624"
+            ],
+            [
+                "2105cdcf6cfc5ff7"
+            ],
+            [
+                "32170cb82397080e"
+            ],
+            [
+                "3f6fc7911d7f5267"
+            ],
+            [
+                "1295ecd74145a64b"
+            ],
+            [
+                "26b9faae9537b02c"
+            ],
+            [
+                "560bdec1934a1331"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "1295ecd74145a64b",
+        "type": "string",
+        "z": "98d7cf0776793c61",
+        "name": "Parse Fwd RF Pwr",
+        "methods": [
+            {
+                "name": "delLeftMost",
+                "params": [
+                    {
+                        "type": "str",
+                        "value": "PWF"
+                    }
+                ]
+            }
+        ],
+        "prop": "payload",
+        "propout": "payload",
+        "object": "msg",
+        "objectout": "msg",
+        "x": 1110,
+        "y": 3100,
+        "wires": [
+            [
+                "3dba73e9a6f00ea5",
+                "e794beba73fd4285"
+            ]
+        ]
+    },
+    {
+        "id": "3dba73e9a6f00ea5",
+        "type": "ui_gauge",
+        "z": "98d7cf0776793c61",
+        "name": "FWD RF PWR",
+        "group": "4af4d08c70d2f779",
+        "order": 11,
+        "width": 6,
+        "height": 5,
+        "gtype": "gage",
+        "title": "<font size=1,font color=lightblue>FWD RF PWR",
+        "label": "WATTS",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "2000",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "1600",
+        "seg2": "1700",
+        "className": "",
+        "x": 1720,
+        "y": 3100,
+        "wires": []
+    },
+    {
+        "id": "a4286823bff237d8",
+        "type": "change",
+        "z": "98d7cf0776793c61",
+        "name": "Low Spd Msg Generator",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "1",
+                "fromt": "num",
+                "to": "^OS;",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "2",
+                "fromt": "num",
+                "to": "^BN;",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "3",
+                "fromt": "num",
+                "to": "^FS;",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "4",
+                "fromt": "num",
+                "to": "^TM;",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "5",
+                "fromt": "num",
+                "to": "^FL;",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "6",
+                "fromt": "num",
+                "to": "^DS;",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "7",
+                "fromt": "num",
+                "to": "^AM;",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "8",
+                "fromt": "num",
+                "to": "^TP;",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 770,
+        "y": 360,
+        "wires": [
+            [
+                "0f8931708e979e66",
+                "175b0d4ce2cc746f"
+            ]
+        ]
+    },
+    {
+        "id": "0f8931708e979e66",
+        "type": "delay",
+        "z": "98d7cf0776793c61",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "0.02",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1190,
+        "y": 360,
+        "wires": [
+            [
+                "17c5c4d0d6e1fafa"
+            ]
+        ]
+    },
+    {
+        "id": "6b23d31f18593050",
+        "type": "loop",
+        "z": "98d7cf0776793c61",
+        "name": "Low Spd Loop Controller",
+        "kind": "fcnt",
+        "count": "8",
+        "initial": "1",
+        "step": "1",
+        "condition": "",
+        "conditionType": "re",
+        "when": "before",
+        "enumeration": "[1,2,3,4,5]",
+        "enumerationType": "json",
+        "limit": "",
+        "loopPayload": "loop-val",
+        "finalPayload": "final-orig",
+        "x": 490,
+        "y": 360,
+        "wires": [
+            [
+                "ebe662e0644ed374"
+            ],
+            [
+                "a4286823bff237d8"
+            ]
+        ]
+    },
+    {
+        "id": "ebe662e0644ed374",
+        "type": "function",
+        "z": "98d7cf0776793c61",
+        "name": "Restart Loop",
+        "func": "msg.command=\"restart\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 280,
+        "wires": [
+            [
+                "6b23d31f18593050"
+            ]
+        ]
+    },
+    {
+        "id": "3f6fc7911d7f5267",
+        "type": "string",
+        "z": "98d7cf0776793c61",
+        "name": "Parse Inp RF Pwr",
+        "methods": [
+            {
+                "name": "delLeftMost",
+                "params": [
+                    {
+                        "type": "str",
+                        "value": "PWI"
+                    }
+                ]
+            }
+        ],
+        "prop": "payload",
+        "propout": "payload",
+        "object": "msg",
+        "objectout": "msg",
+        "x": 1110,
+        "y": 2840,
+        "wires": [
+            [
+                "d60190e066bcbf9b"
+            ]
+        ]
+    },
+    {
+        "id": "a46f3ad00ee0ace9",
+        "type": "ui_gauge",
+        "z": "98d7cf0776793c61",
+        "name": "INP RF PWR",
+        "group": "4af4d08c70d2f779",
+        "order": 10,
+        "width": 6,
+        "height": 5,
+        "gtype": "gage",
+        "title": "<font size=1,font color=lightblue>INPUT RF PWR",
+        "label": "WATTS",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "50",
+        "seg2": "60",
+        "className": "",
+        "x": 1710,
+        "y": 2840,
+        "wires": []
+    },
+    {
+        "id": "26b9faae9537b02c",
+        "type": "string",
+        "z": "98d7cf0776793c61",
+        "name": "Parse SWR",
+        "methods": [
+            {
+                "name": "delLeftMost",
+                "params": [
+                    {
+                        "type": "str",
+                        "value": "SW"
+                    }
+                ]
+            }
+        ],
+        "prop": "payload",
+        "propout": "payload",
+        "object": "msg",
+        "objectout": "msg",
+        "x": 1090,
+        "y": 3140,
+        "wires": [
+            [
+                "860584715b5de803"
+            ]
+        ]
+    },
+    {
+        "id": "e6a514e5a116fa67",
+        "type": "ui_gauge",
+        "z": "98d7cf0776793c61",
+        "name": "SWR",
+        "group": "4af4d08c70d2f779",
+        "order": 12,
+        "width": 6,
+        "height": 5,
+        "gtype": "gage",
+        "title": "<font size=1,font color=lightblue>SWR",
+        "label": ":1",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "10",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "1.5",
+        "seg2": "2.5",
+        "className": "",
+        "x": 1690,
+        "y": 3140,
+        "wires": []
+    },
+    {
+        "id": "560bdec1934a1331",
+        "type": "string",
+        "z": "98d7cf0776793c61",
+        "name": "Parse PA Current",
+        "methods": [
+            {
+                "name": "delLeftMost",
+                "params": [
+                    {
+                        "type": "str",
+                        "value": "PC"
+                    }
+                ]
+            }
+        ],
+        "prop": "payload",
+        "propout": "payload",
+        "object": "msg",
+        "objectout": "msg",
+        "x": 1110,
+        "y": 3180,
+        "wires": [
+            [
+                "2bd074a45f083dfd"
+            ]
+        ]
+    },
+    {
+        "id": "860584715b5de803",
+        "type": "function",
+        "z": "98d7cf0776793c61",
+        "name": "Divide by 10",
+        "func": "msg.payload = msg.payload/10;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1290,
+        "y": 3140,
+        "wires": [
+            [
+                "e6a514e5a116fa67"
+            ]
+        ]
+    },
+    {
+        "id": "f8ee7f29c3958ac5",
+        "type": "string",
+        "z": "98d7cf0776793c61",
+        "name": "Parse Fan Speed",
+        "methods": [
+            {
+                "name": "delLeftMost",
+                "params": [
+                    {
+                        "type": "str",
+                        "value": "FS"
+                    }
+                ]
+            }
+        ],
+        "prop": "payload",
+        "propout": "payload",
+        "object": "msg",
+        "objectout": "msg",
+        "x": 1110,
+        "y": 2600,
+        "wires": [
+            [
+                "e80085426d3de923"
+            ]
+        ]
+    },
+    {
+        "id": "e80085426d3de923",
+        "type": "ui_gauge",
+        "z": "98d7cf0776793c61",
+        "name": "FAN SPEED",
+        "group": "4af4d08c70d2f779",
+        "order": 13,
+        "width": 4,
+        "height": 3,
+        "gtype": "gage",
+        "title": "<font size=1,font color=lightblue>FAN SPEED",
+        "label": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "5",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "3",
+        "seg2": "4",
+        "className": "",
+        "x": 1710,
+        "y": 2600,
+        "wires": []
+    },
+    {
+        "id": "e433b5a747a9f624",
+        "type": "string",
+        "z": "98d7cf0776793c61",
+        "name": "Parse PA Temperature",
+        "methods": [
+            {
+                "name": "delLeftMost",
+                "params": [
+                    {
+                        "type": "str",
+                        "value": "TM"
+                    }
+                ]
+            }
+        ],
+        "prop": "payload",
+        "propout": "payload",
+        "object": "msg",
+        "objectout": "msg",
+        "x": 1120,
+        "y": 2640,
+        "wires": [
+            [
+                "fd0fc4476c20c2a8"
+            ]
+        ]
+    },
+    {
+        "id": "fd0fc4476c20c2a8",
+        "type": "ui_gauge",
+        "z": "98d7cf0776793c61",
+        "name": "PA TEMP",
+        "group": "4af4d08c70d2f779",
+        "order": 14,
+        "width": 4,
+        "height": 3,
+        "gtype": "gage",
+        "title": "<font size=1,font color=lightblue>PA TEMP",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "70",
+        "seg2": "80",
+        "className": "",
+        "x": 1700,
+        "y": 2640,
+        "wires": []
+    },
+    {
+        "id": "e1274a40d250c98c",
+        "type": "jvmg_key",
+        "z": "98d7cf0776793c61",
+        "name": "gate1",
+        "trigger": "8d8d0dbee5a5d021",
+        "x": 490,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "0942b92165538f91",
+        "type": "jvmg_gate",
+        "z": "98d7cf0776793c61",
+        "name": "gate1",
+        "default": true,
+        "trigger": "8d8d0dbee5a5d021",
+        "x": 1110,
+        "y": 760,
+        "wires": [
+            [
+                "b3bd99728c90325c"
+            ]
+        ]
+    },
+    {
+        "id": "726dd29599675e60",
+        "type": "function",
+        "z": "98d7cf0776793c61",
+        "name": "Open Message Gate if Power is On",
+        "func": "var power = flow.get(\"powerstate\");\nif (power==\"on\") msg.payload=Boolean(true);\n    else msg.payload=Boolean(false);\nmsg.test=power;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 1160,
+        "wires": [
+            [
+                "e1274a40d250c98c",
+                "3c44cc172b06280a",
+                "5c0948b28ca8289b"
+            ]
+        ]
+    },
+    {
+        "id": "bd0d04f9b89aa883",
+        "type": "ui_button",
+        "z": "98d7cf0776793c61",
+        "name": "POWER",
+        "group": "4af4d08c70d2f779",
+        "order": 2,
+        "width": 4,
+        "height": 1,
+        "passthru": false,
+        "label": "{{msg.label}}",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "{{msg.background}}",
+        "className": "",
+        "icon": "",
+        "payload": "powerbutton",
+        "payloadType": "flow",
+        "topic": "",
+        "topicType": "str",
+        "x": 820,
+        "y": 1560,
+        "wires": [
+            [
+                "812215d5d7a0d520",
+                "b3bd99728c90325c",
+                "e4727fcd1d051bd4"
+            ]
+        ]
+    },
+    {
+        "id": "d1434b3f90a06025",
+        "type": "function",
+        "z": "98d7cf0776793c61",
+        "name": "Make Button Reflect True State",
+        "func": "if (msg.payload==\"OS1\")   msg.background=\"green\",\n                            msg.label=\"<font color=white>MODE: OPERATE\",\n                            flow.set(\"mode\", \"^OS0;\");\n    else if (msg.payload==\"OS0\")  msg.background=\"yellow\",\n                                    msg.label=\"<font color=black>MODE: STANDBY\",\n                                    flow.set(\"mode\", \"^OS1;\");\n        else    msg.background=\"gray\",\n                msg.label=\"<font color=black>UNK STATE\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 870,
+        "y": 1980,
+        "wires": [
+            [
+                "62780c25ae08c88d"
+            ]
+        ]
+    },
+    {
+        "id": "2bd074a45f083dfd",
+        "type": "ui_gauge",
+        "z": "98d7cf0776793c61",
+        "name": "PA CURRENT",
+        "group": "4af4d08c70d2f779",
+        "order": 15,
+        "width": 4,
+        "height": 3,
+        "gtype": "gage",
+        "title": "<font size=1,font color=lightblue>PA CURRENT",
+        "label": "AMPS",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "60",
+        "seg2": "70",
+        "className": "",
+        "x": 1720,
+        "y": 3180,
+        "wires": []
+    },
+    {
+        "id": "74d54da5ddeb759d",
+        "type": "ui_button",
+        "z": "98d7cf0776793c61",
+        "name": "Band",
+        "group": "4af4d08c70d2f779",
+        "order": 5,
+        "width": 4,
+        "height": 1,
+        "passthru": false,
+        "label": "{{msg.payload}}",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 1690,
+        "y": 2560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9d395eb1b64e2b30",
+        "type": "comment",
+        "z": "98d7cf0776793c61",
+        "name": "High speed message generation, approx. 20Hz",
+        "info": "Input Power\nForward Power\nSWR\nPA Current",
+        "x": 240,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "3459cb89ff4dd514",
+        "type": "comment",
+        "z": "98d7cf0776793c61",
+        "name": "Low speed message generation, approx. 1Hz",
+        "info": "Operating State\nFan Speed\nFault List\nBand Number\nPA Temperature",
+        "x": 230,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "3106cf2d6a02b871",
+        "type": "split",
+        "z": "98d7cf0776793c61",
+        "name": "Split on ;",
+        "splt": ";",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": true,
+        "addname": "",
+        "x": 540,
+        "y": 2720,
+        "wires": [
+            [
+                "528b7e9f31e4167a"
+            ]
+        ]
+    },
+    {
+        "id": "210761e2b9ee1295",
+        "type": "switch",
+        "z": "98d7cf0776793c61",
+        "name": "Remove Null Messages",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nnull"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 490,
+        "y": 2600,
+        "wires": [
+            [
+                "93e97e8ce9d156a6"
+            ]
+        ]
+    },
+    {
+        "id": "93e97e8ce9d156a6",
+        "type": "split",
+        "z": "98d7cf0776793c61",
+        "name": "Split on ^",
+        "splt": "^",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": true,
+        "addname": "",
+        "x": 500,
+        "y": 2660,
+        "wires": [
+            [
+                "3106cf2d6a02b871"
+            ]
+        ]
+    },
+    {
+        "id": "b3bd99728c90325c",
+        "type": "simple-queue",
+        "z": "98d7cf0776793c61",
+        "name": "",
+        "firstMessageBypass": true,
+        "bypassInterval": "0",
+        "x": 1550,
+        "y": 840,
+        "wires": [
+            [
+                "ef6982747cca5c41"
+            ]
+        ]
+    },
+    {
+        "id": "8295636e8380e726",
+        "type": "change",
+        "z": "98d7cf0776793c61",
+        "name": "Wait for Semicolon to Trigger Next Message",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": ";",
+                "fromt": "str",
+                "to": "trigger",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "trigger",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1050,
+        "y": 960,
+        "wires": [
+            [
+                "b3bd99728c90325c"
+            ]
+        ]
+    },
+    {
+        "id": "812215d5d7a0d520",
+        "type": "change",
+        "z": "98d7cf0776793c61",
+        "name": "Trigger for Button and External Messages",
+        "rules": [
+            {
+                "t": "set",
+                "p": "trigger",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1560,
+        "y": 1700,
+        "wires": [
+            [
+                "b3bd99728c90325c"
+            ]
+        ]
+    },
+    {
+        "id": "21f6ae9c982f7d0b",
+        "type": "inject",
+        "z": "98d7cf0776793c61",
+        "name": "Check that KPA1500 is powered on and on the network every 1 sec",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "^I;",
+        "payloadType": "str",
+        "x": 850,
+        "y": 1100,
+        "wires": [
+            [
+                "812215d5d7a0d520",
+                "b3bd99728c90325c"
+            ]
+        ]
+    },
+    {
+        "id": "da94f13e524ed9f6",
+        "type": "function",
+        "z": "98d7cf0776793c61",
+        "name": "Make Button Reflect True State",
+        "func": "if (msg.payload==\"KPA1500\") msg.background=\"green\",\n                        msg.label=\"<font color=white>POWER: ON\",\n                        flow.set(\"powerbutton\", \"^on0;\"),\n                        flow.set(\"powerstate\", \"on\");\n    else if (msg.payload==\"timeout\") msg.background=\"yellow\",\n         msg.label=\"<font color=black>POWER: OFF\",\n         flow.set(\"powerbutton\", \"^on1;\"),\n         flow.set(\"powerstate\", \"off\");\n         else   msg.background=\"gray\",\n                msg.label=\"<font color=black>UNK STATE\",\n                flow.set(\"powerstate\", \"off\");\nmsg.payload=\"dummy\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 1560,
+        "wires": [
+            [
+                "bd0d04f9b89aa883"
+            ]
+        ]
+    },
+    {
+        "id": "289e0311a05034c2",
+        "type": "trigger",
+        "z": "98d7cf0776793c61",
+        "name": "Message Timeout 2 Sec",
+        "op1": "",
+        "op2": "timeout",
+        "op1type": "nul",
+        "op2type": "str",
+        "duration": "2",
+        "extend": true,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "topic",
+        "topic": "payload",
+        "outputs": 1,
+        "x": 370,
+        "y": 1440,
+        "wires": [
+            [
+                "da94f13e524ed9f6",
+                "660dbae864cfa24f",
+                "68653eafa44fe540"
+            ]
+        ]
+    },
+    {
+        "id": "b686be831159d68a",
+        "type": "wake on lan",
+        "z": "98d7cf0776793c61",
+        "mac": "",
+        "host": "192.168.1.255",
+        "udpport": "9",
+        "numpackets": "3",
+        "interval": 100,
+        "name": "",
+        "x": 890,
+        "y": 1740,
+        "wires": []
+    },
+    {
+        "id": "74f8668ba4bbefe8",
+        "type": "inject",
+        "z": "98d7cf0776793c61",
+        "name": "Check once per second",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 230,
+        "y": 1100,
+        "wires": [
+            [
+                "726dd29599675e60"
+            ]
+        ]
+    },
+    {
+        "id": "3c44cc172b06280a",
+        "type": "rbe",
+        "z": "98d7cf0776793c61",
+        "name": "Trigger Message Queue to Start",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 910,
+        "y": 1160,
+        "wires": [
+            [
+                "812215d5d7a0d520"
+            ]
+        ]
+    },
+    {
+        "id": "175b0d4ce2cc746f",
+        "type": "jvmg_gate",
+        "z": "98d7cf0776793c61",
+        "name": "gate1",
+        "default": true,
+        "trigger": "8d8d0dbee5a5d021",
+        "x": 1110,
+        "y": 700,
+        "wires": [
+            [
+                "b3bd99728c90325c"
+            ]
+        ]
+    },
+    {
+        "id": "e4727fcd1d051bd4",
+        "type": "switch",
+        "z": "98d7cf0776793c61",
+        "name": "Pass Only \"ON\" Commands",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "^on1;",
+                "vt": "str"
+            },
+            {
+                "t": "nempty"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 840,
+        "y": 1620,
+        "wires": [
+            [
+                "1c9885bc1e3eafc6",
+                "2d6ec623f54e0aae"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "6844a7765f1a8a6a",
+        "type": "ui_toast",
+        "z": "98d7cf0776793c61",
+        "position": "bottom left",
+        "displayTime": "20",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "Power ON Notification",
+        "x": 1520,
+        "y": 1860,
+        "wires": []
+    },
+    {
+        "id": "1c9885bc1e3eafc6",
+        "type": "change",
+        "z": "98d7cf0776793c61",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Attempting to find and power on amplifier. This may require up to 20 seconds. If this fails repeatedly check amplifier and settings.",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1100,
+        "y": 1680,
+        "wires": [
+            [
+                "6844a7765f1a8a6a"
+            ]
+        ]
+    },
+    {
+        "id": "5c0948b28ca8289b",
+        "type": "rbe",
+        "z": "98d7cf0776793c61",
+        "name": "Block Unless Change",
+        "func": "rbei",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 720,
+        "y": 1860,
+        "wires": [
+            [
+                "38a74e1a205f1485"
+            ]
+        ]
+    },
+    {
+        "id": "466b2124134174d3",
+        "type": "change",
+        "z": "98d7cf0776793c61",
+        "name": "Dismiss on success",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "true",
+                "fromt": "bool",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 970,
+        "y": 1860,
+        "wires": [
+            [
+                "6844a7765f1a8a6a"
+            ]
+        ]
+    },
+    {
+        "id": "8fac55ee7c5659a2",
+        "type": "comment",
+        "z": "98d7cf0776793c61",
+        "name": "Messages are gated off when amp is not on",
+        "info": "",
+        "x": 230,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "7d26a669e3bad454",
+        "type": "comment",
+        "z": "98d7cf0776793c61",
+        "name": "Closed loop, queued and metered message transmission",
+        "info": "",
+        "x": 270,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "67c924b1e2e998d4",
+        "type": "comment",
+        "z": "98d7cf0776793c61",
+        "name": "Closed loop checking to see if amp is online",
+        "info": "",
+        "x": 230,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "2264319931113599",
+        "type": "comment",
+        "z": "98d7cf0776793c61",
+        "name": "Two second period at startup to determine amp state",
+        "info": "",
+        "x": 250,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "dab2b1c5722bf097",
+        "type": "comment",
+        "z": "98d7cf0776793c61",
+        "name": "Power button and power state indicator",
+        "info": "",
+        "x": 210,
+        "y": 1560,
+        "wires": []
+    },
+    {
+        "id": "2833c21027623cb7",
+        "type": "comment",
+        "z": "98d7cf0776793c61",
+        "name": "Power off message (simple and easy!)",
+        "info": "",
+        "x": 950,
+        "y": 1460,
+        "wires": []
+    },
+    {
+        "id": "44009b6b24f8fd95",
+        "type": "comment",
+        "z": "98d7cf0776793c61",
+        "name": "Power ON logic (complicated!)",
+        "info": "",
+        "x": 180,
+        "y": 1740,
+        "wires": []
+    },
+    {
+        "id": "9c94bcfed6efe661",
+        "type": "comment",
+        "z": "98d7cf0776793c61",
+        "name": "Mode control and state indicator, closed loop",
+        "info": "",
+        "x": 230,
+        "y": 1960,
+        "wires": []
+    },
+    {
+        "id": "97c5a0ce6101e41b",
+        "type": "comment",
+        "z": "98d7cf0776793c61",
+        "name": "closed loop reporting for ON state",
+        "info": "",
+        "x": 230,
+        "y": 1600,
+        "wires": []
+    },
+    {
+        "id": "c566a7935a6c4027",
+        "type": "comment",
+        "z": "98d7cf0776793c61",
+        "name": "Message and data processing and display",
+        "info": "",
+        "x": 220,
+        "y": 2420,
+        "wires": []
+    },
+    {
+        "id": "9af85bf1b8dd324a",
+        "type": "comment",
+        "z": "98d7cf0776793c61",
+        "name": "Overall design goals READ ME",
+        "info": "Make sure all indicators are based on true state of the amplifier, i.e. do not base them on button clicks, but only on the receipt of actual messages from the amp.\nMake sure that data is transmitted to the amp cleanly, wait for semicolons on responses, don't let amp input buffer get overwhelmed.\nGet responsive, buttery smooth display of important parameters (e.g. forward RF power). To do this low speed queries must be evenly interspersed with high speed queries, queries should not go in \"clumps\".\nPay attention to idiosyncracies in the amp firmware and suppress display of data that should be suppressed when amp is OFF or in RX.",
+        "x": 190,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "38a74e1a205f1485",
+        "type": "switch",
+        "z": "98d7cf0776793c61",
+        "name": "Pass only \"true\" events",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 870,
+        "y": 1900,
+        "wires": [
+            [],
+            [
+                "466b2124134174d3"
+            ]
+        ]
+    },
+    {
+        "id": "660dbae864cfa24f",
+        "type": "function",
+        "z": "98d7cf0776793c61",
+        "name": "Suppress display if power off",
+        "func": "if (msg.payload==\"timeout\") msg.background=\"gray\",\n         msg.label=\"\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 860,
+        "y": 2040,
+        "wires": [
+            [
+                "62780c25ae08c88d",
+                "621e3c588f9aec7f",
+                "e5e8d19404084363"
+            ]
+        ]
+    },
+    {
+        "id": "b5dc7662f15e7b50",
+        "type": "inject",
+        "z": "98d7cf0776793c61",
+        "name": "Set button initial condition to Power Off",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.1",
+        "topic": "",
+        "payload": "timeout",
+        "payloadType": "str",
+        "x": 310,
+        "y": 1380,
+        "wires": [
+            [
+                "289e0311a05034c2"
+            ]
+        ]
+    },
+    {
+        "id": "68653eafa44fe540",
+        "type": "function",
+        "z": "98d7cf0776793c61",
+        "name": "Suppress display if power off",
+        "func": "if (msg.payload==\"timeout\") msg.payload=\"\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1380,
+        "y": 2520,
+        "wires": [
+            [
+                "74d54da5ddeb759d",
+                "74f043cb1fc3e9a3",
+                "fd0fc4476c20c2a8",
+                "e6a514e5a116fa67"
+            ]
+        ]
+    },
+    {
+        "id": "4362447a710cbc7a",
+        "type": "comment",
+        "z": "98d7cf0776793c61",
+        "name": "Forward amp commands from other flows -- input ONLY, nothing returned",
+        "info": "",
+        "x": 320,
+        "y": 2120,
+        "wires": []
+    },
+    {
+        "id": "74f043cb1fc3e9a3",
+        "type": "ui_button",
+        "z": "98d7cf0776793c61",
+        "name": "TX/RX Status",
+        "group": "4af4d08c70d2f779",
+        "order": 4,
+        "width": 1,
+        "height": 1,
+        "passthru": false,
+        "label": "{{msg.label}}",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "{{msg.background}}",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 1720,
+        "y": 3060,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2105cdcf6cfc5ff7",
+        "type": "rbe",
+        "z": "98d7cf0776793c61",
+        "name": "Pass only changes",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 1110,
+        "y": 3060,
+        "wires": [
+            [
+                "4735c8c2de9c0355",
+                "d95e911710c11a32"
+            ]
+        ]
+    },
+    {
+        "id": "e794beba73fd4285",
+        "type": "gate",
+        "z": "98d7cf0776793c61",
+        "name": "fwdGate",
+        "controlTopic": "forwardPowerGate",
+        "defaultState": "closed",
+        "openCmd": "open",
+        "closeCmd": "close",
+        "toggleCmd": "toggle",
+        "defaultCmd": "default",
+        "statusCmd": "status",
+        "persist": false,
+        "storeName": "memory",
+        "x": 1360,
+        "y": 2920,
+        "wires": [
+            [
+                "1ce0320cbb32abdb"
+            ]
+        ]
+    },
+    {
+        "id": "4735c8c2de9c0355",
+        "type": "function",
+        "z": "98d7cf0776793c61",
+        "name": "Send FWD power when amp in BYPASS",
+        "func": "var message = msg.payload;\n\nif (message.includes(\"MODE_STBY\"))   \n\n                            msg.topic=\"forwardPowerGate\",\n                            msg.payload=\"open\",\n                            node.send(msg),\n                            msg.topic=\"inputPowerGate\",\n                            msg.payload=\"close\",\n                            node.send(msg);\n                            \n    else if (message.includes(\"PA OPER\"))\n    \n                            msg.topic=\"forwardPowerGate\",\n                            msg.payload=\"close\",\n                            node.send(msg),\n                            msg.topic=\"inputPowerGate\",\n                            msg.payload=\"open\",\n                            node.send(msg);\n\nreturn;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1220,
+        "y": 2880,
+        "wires": [
+            [
+                "e794beba73fd4285",
+                "d60190e066bcbf9b"
+            ]
+        ]
+    },
+    {
+        "id": "d60190e066bcbf9b",
+        "type": "gate",
+        "z": "98d7cf0776793c61",
+        "name": "inpGate",
+        "controlTopic": "inputPowerGate",
+        "defaultState": "open",
+        "openCmd": "open",
+        "closeCmd": "close",
+        "toggleCmd": "toggle",
+        "defaultCmd": "default",
+        "statusCmd": "status",
+        "persist": false,
+        "storeName": "memory",
+        "x": 1360,
+        "y": 2820,
+        "wires": [
+            [
+                "1ce0320cbb32abdb"
+            ]
+        ]
+    },
+    {
+        "id": "1ce0320cbb32abdb",
+        "type": "switch",
+        "z": "98d7cf0776793c61",
+        "name": "Block non-numeric",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "close",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "open",
+                "vt": "str"
+            },
+            {
+                "t": "nempty"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 3,
+        "x": 1550,
+        "y": 2900,
+        "wires": [
+            [],
+            [],
+            [
+                "a46f3ad00ee0ace9"
+            ]
+        ]
+    },
+    {
+        "id": "d95e911710c11a32",
+        "type": "function",
+        "z": "98d7cf0776793c61",
+        "name": "Make button reflect true TX/RX state",
+        "func": "var message = msg.payload;\n\nif (message.includes(\"TR_STATE_RX\") || message.includes(\"MODE_STBY\"))   \n\n        msg.background=\"#097479\",\n        msg.label=\"<font color=white>RX\";\n        \n    else if (message.includes(\"TR_STATE_TX\"))\n    \n            msg.background=\"green\",\n            msg.label=\"<font color=white>TX\";\n\nreturn(msg);",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1430,
+        "y": 3060,
+        "wires": [
+            [
+                "74f043cb1fc3e9a3"
+            ]
+        ]
+    },
+    {
+        "id": "eb6e93f3717e0d09",
+        "type": "link in",
+        "z": "98d7cf0776793c61",
+        "name": "commandToKPA1500",
+        "links": [
+            "17ae956ac0cc8ce1",
+            "34346a1ab0653caa"
+        ],
+        "x": 1275,
+        "y": 2260,
+        "wires": [
+            [
+                "812215d5d7a0d520",
+                "b3bd99728c90325c"
+            ]
+        ]
+    },
+    {
+        "id": "3cb13f0427724aa6",
+        "type": "comment",
+        "z": "98d7cf0776793c61",
+        "name": "commandToKPA1500",
+        "info": "",
+        "x": 1240,
+        "y": 2240,
+        "wires": []
+    },
+    {
+        "id": "2d6ec623f54e0aae",
+        "type": "change",
+        "z": "98d7cf0776793c61",
+        "name": "Add MAC info from settings",
+        "rules": [
+            {
+                "t": "set",
+                "p": "mac",
+                "pt": "msg",
+                "to": "kpaNetworkSettings.macAddress",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 840,
+        "y": 1680,
+        "wires": [
+            [
+                "b686be831159d68a"
+            ]
+        ]
+    },
+    {
+        "id": "ef6982747cca5c41",
+        "type": "change",
+        "z": "98d7cf0776793c61",
+        "name": "Add IP & port info from settings",
+        "rules": [
+            {
+                "t": "set",
+                "p": "ip",
+                "pt": "msg",
+                "to": "kpaNetworkSettings.ipAddress",
+                "tot": "global"
+            },
+            {
+                "t": "set",
+                "p": "port",
+                "pt": "msg",
+                "to": "kpaNetworkSettings.port",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1670,
+        "y": 900,
+        "wires": [
+            [
+                "ad1f3809d3927a85"
+            ]
+        ]
+    },
+    {
+        "id": "d2a47cfdc015c569",
+        "type": "udp in",
+        "z": "98d7cf0776793c61",
+        "name": "",
+        "iface": "",
+        "port": "1500",
+        "ipv": "udp4",
+        "multicast": "false",
+        "group": "",
+        "datatype": "utf8",
+        "x": 1900,
+        "y": 960,
+        "wires": [
+            [
+                "210761e2b9ee1295",
+                "8295636e8380e726"
+            ]
+        ]
+    },
+    {
+        "id": "ad1f3809d3927a85",
+        "type": "udp out",
+        "z": "98d7cf0776793c61",
+        "name": "",
+        "addr": "",
+        "iface": "",
+        "port": "",
+        "ipv": "udp4",
+        "outport": "1500",
+        "base64": false,
+        "multicast": "false",
+        "x": 1890,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "b1bfd325082f15e1",
+        "type": "ui_template",
+        "z": "98d7cf0776793c61",
+        "group": "4af4d08c70d2f779",
+        "name": "KPA LCD Display",
+        "order": 8,
+        "width": 8,
+        "height": 1,
+        "format": "<div style=\"font-size:80%;color:{{msg.font}};padding:3px;margin:0px;border: 2px solid #097479;text-align: center;background-color: {{msg.background}};\">{{msg.payload}}</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1730,
+        "y": 3220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "32170cb82397080e",
+        "type": "string",
+        "z": "98d7cf0776793c61",
+        "name": "Parse LCD Display Message",
+        "methods": [
+            {
+                "name": "delLeftMost",
+                "params": [
+                    {
+                        "type": "str",
+                        "value": "DS"
+                    }
+                ]
+            },
+            {
+                "name": "replaceAll",
+                "params": [
+                    {
+                        "type": "str",
+                        "value": "\\n"
+                    },
+                    {
+                        "type": "str",
+                        "value": " "
+                    }
+                ]
+            }
+        ],
+        "prop": "payload",
+        "propout": "payload",
+        "object": "msg",
+        "objectout": "msg",
+        "x": 1140,
+        "y": 3220,
+        "wires": [
+            [
+                "e744e59c4c01b159"
+            ]
+        ]
+    },
+    {
+        "id": "621e3c588f9aec7f",
+        "type": "ui_button",
+        "z": "98d7cf0776793c61",
+        "name": "ATU MODE",
+        "group": "4af4d08c70d2f779",
+        "order": 6,
+        "width": 4,
+        "height": 1,
+        "passthru": false,
+        "label": "{{msg.label}}",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "{{msg.background}}",
+        "className": "",
+        "icon": "",
+        "payload": "atuMode",
+        "payloadType": "flow",
+        "topic": "",
+        "topicType": "str",
+        "x": 1130,
+        "y": 2100,
+        "wires": [
+            [
+                "812215d5d7a0d520",
+                "b3bd99728c90325c"
+            ]
+        ]
+    },
+    {
+        "id": "0a5d99387a8204a3",
+        "type": "function",
+        "z": "98d7cf0776793c61",
+        "name": "Make Button Reflect True State",
+        "func": "if (msg.payload==\"AMI\")   msg.background=\"green\",\n                            msg.label=\"<font color=white>ATU: INLINE\",\n                            flow.set(\"atuMode\", \"^AMB;\");\n    else if (msg.payload==\"AMB\")  msg.background=\"#097479\",\n                                    msg.label=\"<font color=white>ATU: BYPASS\",\n                                    flow.set(\"atuMode\", \"^AMI;\");\n        else    msg.background=\"gray\",\n                msg.label=\"<font color=black>UNK STATE\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 2100,
+        "wires": [
+            [
+                "621e3c588f9aec7f"
+            ]
+        ]
+    },
+    {
+        "id": "e5e8d19404084363",
+        "type": "ui_button",
+        "z": "98d7cf0776793c61",
+        "name": "TUNE",
+        "group": "4af4d08c70d2f779",
+        "order": 7,
+        "width": 4,
+        "height": 1,
+        "passthru": false,
+        "label": "{{msg.label}}",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "{{msg.background}}",
+        "className": "",
+        "icon": "",
+        "payload": "atu",
+        "payloadType": "flow",
+        "topic": "",
+        "topicType": "str",
+        "x": 1170,
+        "y": 2160,
+        "wires": [
+            [
+                "812215d5d7a0d520",
+                "b3bd99728c90325c"
+            ]
+        ]
+    },
+    {
+        "id": "02dffea458bcd365",
+        "type": "function",
+        "z": "98d7cf0776793c61",
+        "name": "Make Button Reflect True State",
+        "func": "atuMode = flow.get(\"atuMode\");\n\nif (atuMode==\"^AMI;\")   msg.background=\"gray\",\n                        msg.label=\"\",\n                        flow.set(\"atu\", \"\");\n                        \n    else if (atuMode==\"^AMB;\" & msg.payload==\"TP0\") msg.background=\"green\",\n                                                    msg.label=\"<font color=white>TUNE\",\n                                                    flow.set(\"atu\", \"^FT;\");\n                            \n        else if (atuMode==\"^AMB;\" & msg.payload==\"TP1\") msg.background=\"yellow\",\n                                                        msg.label=\"<font color=black>TUNING\",\n                                                        flow.set(\"atu\", \"^FE;\");\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 930,
+        "y": 2160,
+        "wires": [
+            [
+                "e5e8d19404084363"
+            ]
+        ]
+    },
+    {
+        "id": "d5405b6cacff7960",
+        "type": "link out",
+        "z": "98d7cf0776793c61",
+        "name": "kpaTuneComplete",
+        "mode": "link",
+        "links": [
+            "0b0dc5fcd514121c"
+        ],
+        "x": 1035,
+        "y": 2460,
+        "wires": []
+    },
+    {
+        "id": "f86589a1560a3f60",
+        "type": "comment",
+        "z": "98d7cf0776793c61",
+        "name": "Send ATU tune-complete messages to macro flow",
+        "info": "",
+        "x": 1200,
+        "y": 2420,
+        "wires": []
+    },
+    {
+        "id": "e744e59c4c01b159",
+        "type": "function",
+        "z": "98d7cf0776793c61",
+        "name": "Check for fault message and set style",
+        "func": "message = msg.payload;\n\nif (message.includes(\"FAULT\"))  msg.background = \"red\",\n                                msg.font = \"white\";\n                                \n    else if (message.includes(\"OVR\"))   msg.background = \"yellow\",\n                                        msg.font = \"black\";\n                                        \n        else    msg.background = \"transparent\",\n                msg.font = \"white\";\n                \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1450,
+        "y": 3220,
+        "wires": [
+            [
+                "b1bfd325082f15e1"
+            ]
+        ]
+    },
+    {
+        "id": "4af4d08c70d2f779",
+        "type": "ui_group",
+        "name": "KPA1500 Control",
+        "tab": "7cfa0acacdc9425e",
+        "order": 4,
+        "disp": false,
+        "width": 30,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "8d8d0dbee5a5d021",
+        "type": "jvmg_trigger",
+        "trigger": "gate1"
+    },
+    {
+        "id": "7cfa0acacdc9425e",
+        "type": "ui_tab",
+        "name": "STATION CONTROLLER MAIN",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
