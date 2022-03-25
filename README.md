@@ -49,5 +49,5 @@
  
  Amp network settings are saved in c:\node-red\kpa_settings.json. The directory will be created if it is missing.
  
- Developed under node 16.12.0 and npm 8.1.0.
+ Developed under node 16.12.0 and npm 8.1.0, and KPA1500 firmware version 2.58.
  
